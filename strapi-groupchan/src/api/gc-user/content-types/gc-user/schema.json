@@ -1,0 +1,79 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gc_users",
+  "info": {
+    "singularName": "gc-user",
+    "pluralName": "gc-users",
+    "displayName": "gc-user",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "string",
+      "unique": true,
+      "minLength": 4,
+      "maxLength": 50,
+      "required": true,
+      "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+    },
+    "username": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "minLength": 3,
+      "maxLength": 16
+    },
+    "password": {
+      "type": "password",
+      "required": true
+    },
+    "birthdate": {
+      "type": "date"
+    },
+    "status": {
+      "type": "boolean",
+      "default": false
+    },
+    "group_mod": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::group.group",
+      "inversedBy": "moderator"
+    },
+    "group_admin": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::group.group",
+      "mappedBy": "admin"
+    },
+    "group_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::group.group",
+      "inversedBy": "users"
+    },
+    "message": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::message.message",
+      "mappedBy": "gc_user"
+    },
+    "post": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::post.post",
+      "mappedBy": "gc_user"
+    },
+    "profile_image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

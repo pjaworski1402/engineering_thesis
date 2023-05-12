@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "messages",
+  "info": {
+    "singularName": "message",
+    "pluralName": "messages",
+    "displayName": "message",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "text",
+      "minLength": 1,
+      "maxLength": 250,
+      "required": true
+    },
+    "group": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::group.group",
+      "inversedBy": "message"
+    },
+    "gc_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::gc-user.gc-user",
+      "inversedBy": "message"
+    }
+  }
+}

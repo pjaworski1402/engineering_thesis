@@ -1,0 +1,67 @@
+{
+  "kind": "collectionType",
+  "collectionName": "groups",
+  "info": {
+    "singularName": "group",
+    "pluralName": "groups",
+    "displayName": "group",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "minLength": 3,
+      "maxLength": 16
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "public": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "nsfw": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "admin": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::gc-user.gc-user",
+      "inversedBy": "group_admin"
+    },
+    "moderator": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::gc-user.gc-user",
+      "mappedBy": "group_mod"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::gc-user.gc-user",
+      "mappedBy": "group_user"
+    },
+    "message": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::message.message",
+      "mappedBy": "group"
+    },
+    "post": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::post.post",
+      "mappedBy": "group"
+    }
+  }
+}
