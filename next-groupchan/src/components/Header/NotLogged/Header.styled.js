@@ -9,7 +9,9 @@ export const Container = styled.div`
   justify-content: center;
   margin-bottom: 24px;
   margin-top: 48px;
-  @media ${device.tablet} {
+  @media ${device.laptop} {
+    margin-top: 40px;
+    margin-bottom: 0;
     justify-content: left;
   }
 `;

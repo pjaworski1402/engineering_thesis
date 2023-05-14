@@ -1,7 +1,9 @@
 "use client";
 import { useState } from "react";
-import { InputText, Container, Label,ErrorMessage } from "./Input.styled";
+import { ErrorMessage } from "./Input.styled";
+import {CheckboxInput, Container, Label } from "./Checkbox.styled" 
 import { getIn } from "formik";
+import {changeClass} from "./Input"
 
 export const valueHeandler = (name, values) => {
   if (!name) return "";
@@ -13,21 +15,8 @@ export const valueHeandler = (name, values) => {
     return el[res[2]];
   }
 };
-export const changeClass = (touched, error, value) => {
-  if (touched) {
-    if (value === null) return "error";
-    if (error || (value && value.length === 0)) {
-      return "error";
-    } else {
-      if (value !== undefined && value.length !== 0) {
-        return "done";
-      }
-    }
-  }
-  return "";
-};
 
-const Input = ({ children, required, name, formik_props,type }) => {
+const Checkbox = ({ children, required, name, formik_props,type }) => {
   const [isActive, setIsActive] = useState("");
   let value = valueHeandler(name, formik_props.values);
   function handleTextChange(v) {
@@ -40,8 +29,8 @@ const Input = ({ children, required, name, formik_props,type }) => {
     }
   }
   return (
-    <Container className="inputContainer">
-      <InputText
+    <Container className="checkboxContainer">
+      <CheckboxInput
         name={name}
         onChange={(e) => handleTextChange(e)}
         value={value}
@@ -49,7 +38,6 @@ const Input = ({ children, required, name, formik_props,type }) => {
           formik_props.setFieldTouched(name, true);
         }}
         type={type}
-        placeholder=""
       />
       <Label className={isActive ? "active" : ""} htmlFor={name}>
         {children}
@@ -68,4 +56,4 @@ const Input = ({ children, required, name, formik_props,type }) => {
   );
 };
 
-export default Input;
+export default Checkbox;

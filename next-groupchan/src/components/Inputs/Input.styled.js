@@ -14,7 +14,7 @@ export const Container = styled.div`
 `;
 
 export const InputText = styled.input`
-  border: 1px solid var(--gray);
+  border: 1px solid var(--border);
   border-radius: 5px;
   padding: 10px 16px;
   height: 50px;
@@ -46,4 +46,6 @@ export const ErrorMessage = styled.div`
   color: red;
   font-size: 12px;
   margin-top: 6px;
+  display: flex;
+  flex-direction: column;
 `;

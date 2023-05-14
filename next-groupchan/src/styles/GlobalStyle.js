@@ -30,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
     }
     * {
         box-sizing: border-box;
-        /* font-family: ${({montserratFont})=>montserratFont}; */
+        font-family: ${({montserratFont})=>montserratFont};
     }
     :root{
         /* COLORS */
@@ -38,6 +38,7 @@ const GlobalStyle = createGlobalStyle`
         --contrast:#EB4628;
         --dark:#000000;
         --gray:#737373;
+        --border:#E6E6E6;
     }
     .container {
         width: 100%;
