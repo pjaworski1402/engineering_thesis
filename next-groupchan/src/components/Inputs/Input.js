@@ -27,7 +27,7 @@ export const changeClass = (touched, error, value) => {
   return "";
 };
 
-const Input = ({ children, required, name, formik_props,type }) => {
+const Input = ({ children, required, name, formik_props,type,errorsCMS }) => {
   const [isActive, setIsActive] = useState("");
   let value = valueHeandler(name, formik_props.values);
   function handleTextChange(v) {
@@ -64,6 +64,9 @@ const Input = ({ children, required, name, formik_props,type }) => {
           {getIn(formik_props.errors, name)}
         </ErrorMessage>
       )}
+        <ErrorMessage>
+          {errorsCMS?.filter(error=>error.path === name)[0]?.message}
+        </ErrorMessage>
     </Container>
   );
 };

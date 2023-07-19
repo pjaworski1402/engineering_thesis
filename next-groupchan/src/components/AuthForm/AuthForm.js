@@ -10,10 +10,12 @@ import {
 
 import communityImage from "@/static/images/community.svg";
 import welcome from "@/static/images/welcome.svg";
+import forgotImage from "@/static/images/forgot_password.svg";
 import Image from "next/image";
 import Link from "next/link";
 import Login from "./Login";
 import Register from "./Register";
+import Forgot from "./Forgot";
 
 const formText = {
   login:{
@@ -29,11 +31,16 @@ const formText = {
     form: <Register />,
     switch:<>Masz już konto? <br /><Link href="/auth/login">Zaloguj się</Link></>,
     image:<Image src={welcome} alt="" className="communityImage register" />
+  },
+  forgot_password:{
+    h1:"Odzyskiwanie hasła",
+    h2:"Nie pamiętasz swojego hasła? Nic straconego! Wpisz swój adres e-mail poniżej, a my prześlemy Ci link do resetowania hasła.",
+    form: <Forgot />,
+    image:<Image src={forgotImage} alt="" className="communityImage forgot" />
   }
 }
 
 const AuthForm = ({form}) => {
-
   return (
     <Container className="container">
       <div className="formContainer">

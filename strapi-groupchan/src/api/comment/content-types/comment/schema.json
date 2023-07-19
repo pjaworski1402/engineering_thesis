@@ -18,10 +18,10 @@
       "maxLength": 255,
       "minLength": 1
     },
-    "gc_user": {
+    "user": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::gc-user.gc-user"
+      "target": "plugin::users-permissions.user"
     },
     "post": {
       "type": "relation",

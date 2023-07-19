@@ -16,6 +16,7 @@ export const DateLabel = styled.label`
 `;
 
 export const DateSelect = styled.select`
+  cursor: pointer;
   background: #f9f9f9;
   border: 1px solid var(--border);
   border-radius: 5px;

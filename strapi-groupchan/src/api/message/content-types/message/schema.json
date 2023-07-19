@@ -24,10 +24,10 @@
       "target": "api::group.group",
       "inversedBy": "message"
     },
-    "gc_user": {
+    "user": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::gc-user.gc-user",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "message"
     }
   }

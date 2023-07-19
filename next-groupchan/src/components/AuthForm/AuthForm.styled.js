@@ -30,6 +30,9 @@ export const Container = styled.div`
     align-items: center;
     margin-top: 48px;
     margin-bottom: 48px;
+    .formContainer{
+      max-width: 384px;
+    }
     .communityImage {
       position: relative;
       margin-right: calc(-42px - 32px);

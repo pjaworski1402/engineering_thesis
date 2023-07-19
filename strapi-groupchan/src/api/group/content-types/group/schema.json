@@ -36,19 +36,19 @@
     "admin": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::gc-user.gc-user",
-      "inversedBy": "group_admin"
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "group"
     },
     "moderator": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::gc-user.gc-user",
+      "target": "plugin::users-permissions.user",
       "mappedBy": "group_mod"
     },
     "users": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::gc-user.gc-user",
+      "target": "plugin::users-permissions.user",
       "mappedBy": "group_user"
     },
     "message": {

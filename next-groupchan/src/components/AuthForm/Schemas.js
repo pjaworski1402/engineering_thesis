@@ -40,14 +40,14 @@ export const registerSchema = Yup.object().shape({
     .required("Dzień jest wymagany")
     .positive("Dzień musi być liczbą dodatnią")
     .integer("Dzień musi być liczbą całkowitą")
-    .min(1, "Dzień musi być większy od 0")
+    .min(1, "Wybierz dzień")
     .max(31, "Dzień nie może być większy niż 31"),
   month: Yup.number()
     .typeError("Miesiąc musi być liczbą")
     .required("Miesiąc jest wymagany")
     .positive("Miesiąc musi być liczbą dodatnią")
     .integer("Miesiąc musi być liczbą całkowitą")
-    .min(1, "Miesiąc musi być większy od 0")
+    .min(1, "Wybierz miesiąc")
     .max(12, "Miesiąc nie może być większy niż 12"),
   year: Yup.number()
     .typeError("Rok musi być liczbą")
@@ -56,8 +56,8 @@ export const registerSchema = Yup.object().shape({
     .integer("Rok musi być liczbą całkowitą")
     .min(1900, "Rok nie może być wcześniejszy niż 1900")
     .max(
-      new Date().getFullYear(),
-      "Rok nie może być późniejszy niż bieżący rok"
+      new Date().getFullYear()-1,
+      "Wybierz rok"
     ),
   terms: Yup.boolean()
     .oneOf(
@@ -65,4 +65,14 @@ export const registerSchema = Yup.object().shape({
       "Zaakceptuj warunki korzystania z serwisu, aby się zarejestrować"
     )
     .required("Warunki korzystania z serwisu muszą być zaakceptowane"),
+});
+
+export const initialForgotalues = {
+  email: "",
+};
+
+export const forgotSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Podaj prawidłowy adres e-mail")
+    .required("Adres e-mail jest wymagany"),
 });
