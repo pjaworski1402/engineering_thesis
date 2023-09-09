@@ -8,12 +8,12 @@ import {
 } from "./AuthForm.styled";
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
-import { useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 const Login = () => {
   const [errorsCMS, setErrorsCMS] = useState([])
-  const router = useRouter();
+  const { status } = useSession();
   const handleLogin = async (values) => {
     const result = await signIn('credentials', {
       redirect: false,
@@ -21,7 +21,6 @@ const Login = () => {
       password: values.password,
     });
     if (result.error === null) {
-      router.push('/dashboard')
     }else{
       setErrorsCMS([{
         path:"email",
@@ -29,7 +28,11 @@ const Login = () => {
       }])
     }
   };
-
+  useEffect(()=>{
+    if(status==="authenticated"){
+      window.location.href = "/dashboard"
+    }
+  },[status])
   return (
     <Formik
       initialValues={initialLoginValues}

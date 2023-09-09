@@ -98,6 +98,13 @@
     "birthdate": {
       "type": "date",
       "required": true
+    },
+    "profile": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

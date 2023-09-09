@@ -1,8 +1,9 @@
 import { Montserrat } from "next/font/google";
-import Header from "@/components/Header/NotLogged/Header";
+import Header from "@/components/Header/Header";
 import GlobalStyle from "../styles/GlobalStyle";
 import StyledComponentsRegistry from "../lib/registry";
 import Provider from "@/components/Provider";
+import { UserProvider } from "@/context/UserContext";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata = {
@@ -14,13 +15,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pl">
       <body className={montserrat.className}>
-        <StyledComponentsRegistry>
         <Provider>
-          <GlobalStyle montserratFont={montserrat.style.fontFamily} />
-          <Header></Header>
-          {children}
+      <UserProvider>
+          <StyledComponentsRegistry>
+            <GlobalStyle montserratFont={montserrat.style.fontFamily} />
+            <Header></Header>
+            {children}
+          </StyledComponentsRegistry>
+    </UserProvider>
         </Provider>
-        </StyledComponentsRegistry>
       </body>
     </html>
   );

@@ -23,20 +23,20 @@ const formText = {
     h2:"Zaloguj się i bądź na bieżąco z wydarzeniami w Twoich grupach.",
     form: <Login />,
     switch:<>Nie masz jeszcze konta? <br /><Link href="/auth/register">Zarejestruj się</Link></>,
-    image:<Image src={communityImage} alt="" className="communityImage login" />
+    image:<Image src={communityImage} alt="" priority className="communityImage login" />
   },
   register:{
     h1:"Załóż konto",
     h2:"Zarejestruj się w aplikacji Groupchan i dołącz do naszej społeczności.",
     form: <Register />,
     switch:<>Masz już konto? <br /><Link href="/auth/login">Zaloguj się</Link></>,
-    image:<Image src={welcome} alt="" className="communityImage register" />
+    image:<Image src={welcome} alt="" priority className="communityImage register" />
   },
   forgot_password:{
     h1:"Odzyskiwanie hasła",
     h2:"Nie pamiętasz swojego hasła? Nic straconego! Wpisz swój adres e-mail poniżej, a my prześlemy Ci link do resetowania hasła.",
     form: <Forgot />,
-    image:<Image src={forgotImage} alt="" className="communityImage forgot" />
+    image:<Image src={forgotImage} alt="" priority className="communityImage forgot" />
   }
 }
 

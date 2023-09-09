@@ -1,9 +1,11 @@
-import Provider from "@/components/Provider";
+// import { UserProvider } from '../../context/UserContext';
 
 export default function RootLayout({ children }) {
   return (
-        <Provider>
-          {children}
-        </Provider>
+    // <UserProvider>
+    <>
+        {children}
+        </>
+    // </UserProvider>
   );
 }

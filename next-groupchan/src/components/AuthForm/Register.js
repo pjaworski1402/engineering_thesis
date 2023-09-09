@@ -30,6 +30,7 @@ const Register = () => {
         router.push('/auth/login?status="success"')
       })
       .catch(err => {
+        console.log(err)
         const {error} = err.response.data
         if(error?.message){
           const errorsList = []
