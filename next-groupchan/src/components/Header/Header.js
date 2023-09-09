@@ -11,7 +11,9 @@ import {
   NavIcon,
   CloseMenuBG,
   UserIco,
-  SettingButton
+  SettingButton,
+  MenuDesktop,
+  MenuWrapper
 } from "./Header.styled";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -27,7 +29,6 @@ const Header = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { status } = useSession();
   const user = useUser();
-  console.log(user);
   const handleOpenMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -69,7 +70,9 @@ const Header = (props) => {
             src={isMenuOpen ? closeIco : menuIco}
             alt="menu button"
           />
-          <CloseMenuBG
+        </MenuButton>
+        <MenuWrapper>
+        <CloseMenuBG
             initial={false}
             animate={isMenuOpen ? "open" : "closed"}
             variants={menuVariantsBG}
@@ -100,7 +103,26 @@ const Header = (props) => {
               </button>
             </div>
           </Menu>
-        </MenuButton>
+        </MenuWrapper>
+        <MenuDesktop>
+            <nav>
+              <Link href={"/"}>
+                <NavIcon src={searchIco} alt="search icon" />
+                Szukaj grupy
+              </Link>
+              <Link href={"/"}>
+                <NavIcon src={addIco} alt="add icon" />
+                Stwórz nową grupę
+              </Link>
+            </nav>
+            <div className="userTab">
+              <UserIco src={user?.profile?.url&&`http://localhost:1337${user?.profile?.url}`} width={32} height={32} />
+              <div className="userName">{user?.username&&user?.username}</div>
+              <button className="settingButton">
+                <SettingButton src={setting} alt="settings icon" />
+              </button>
+            </div>
+          </MenuDesktop>
       </ContainerAuth>
     );
   } else {

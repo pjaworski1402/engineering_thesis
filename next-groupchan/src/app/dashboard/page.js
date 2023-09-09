@@ -1,9 +1,10 @@
 "use client";
 
-import { signOut } from "next-auth/react";
+// import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import GroupSearch from "@/components/Groups/GroupSearch";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -19,7 +20,8 @@ const Dashboard = () => {
   if (isLogged) {
     return (
       <div>
-        <button onClick={signOut}>Sign out</button>
+        {/* <button onClick={signOut}>Sign out</button> */}
+        <GroupSearch></GroupSearch>
       </div>
     );
   } else {
