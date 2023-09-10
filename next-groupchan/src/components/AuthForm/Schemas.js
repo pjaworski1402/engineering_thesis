@@ -67,7 +67,7 @@ export const registerSchema = Yup.object().shape({
     .required("Warunki korzystania z serwisu muszą być zaakceptowane"),
 });
 
-export const initialForgotalues = {
+export const initialForgotValues = {
   email: "",
 };
 

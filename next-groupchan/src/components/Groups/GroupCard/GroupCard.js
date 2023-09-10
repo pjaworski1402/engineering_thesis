@@ -12,7 +12,7 @@ const GroupCard = ({ attributes }) => {
     <Container>
       <div className="top">
         <GroupIco
-          src={`http://localhost:1337${attributes.icon.data.attributes.url}`}
+          src={`http://localhost:1337${attributes?.icon?.data?.attributes?.url}`}
         />
         <div className="groupInfo">
           <GroupName>{attributes.name}</GroupName>

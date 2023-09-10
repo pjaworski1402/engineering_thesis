@@ -1,5 +1,5 @@
 import Input from "../Inputs/Input";
-import { forgotSchema, initialForgotalues } from "./Schemas";
+import { forgotSchema, initialForgotValues } from "./Schemas";
 import { Formik } from "formik";
 import Button from "../Inputs/Button";
 import {
@@ -14,7 +14,7 @@ const Forgot = () => {
       }
     return ( 
         <Formik
-        initialValues={initialForgotalues}
+        initialValues={initialForgotValues}
         validationSchema={forgotSchema}
         onSubmit={handleReset}
       >

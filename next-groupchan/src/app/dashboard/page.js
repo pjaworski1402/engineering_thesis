@@ -10,6 +10,7 @@ const Dashboard = () => {
   const router = useRouter();
   const { status } = useSession();
   const [isLogged, setIsLogged] = useState(false);
+  console.log(router)
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/auth/login");
@@ -18,6 +19,7 @@ const Dashboard = () => {
     }
   }, [status]);
   if (isLogged) {
+
     return (
       <div>
         {/* <button onClick={signOut}>Sign out</button> */}
