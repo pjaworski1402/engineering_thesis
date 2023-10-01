@@ -4,6 +4,7 @@ import { getPostsAndGroup } from "@/api/strapiQueries";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Post from "@/components/Groups/Post/Post";
+import Chat from "@/components/Groups/Chat/Chat";
 
 const Group = ({ params }) => {
   const { data } = useSession();
@@ -19,7 +20,7 @@ const Group = ({ params }) => {
             data.jwt,
             params.groupname
           );
-          console.log(fetchedPosts)
+          console.log(fetchedPosts);
           setPosts(fetchedPosts.data[0].attributes.posts.data);
           setLoading(false);
         }
@@ -33,16 +34,23 @@ const Group = ({ params }) => {
   }, [data]);
   if (posts.length > 0) {
     return (
-      <main className="container" style={{
-        display:"flex",
-        flexDirection:"column",
-        gap:"24px",
-        marginTop:"32px"
-      }}>
-        {posts.map((post) => {
-          return <Post key={post.id} post={post} />;
-        })}
-      </main>
+      <div
+          className="container dashboardGroupContainer"
+      >
+        <main
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+            marginTop: "32px",
+          }}
+        >
+          {posts.map((post) => {
+            return <Post key={post.id} post={post} />;
+          })}
+        </main>
+        <Chat groupname={params.groupname} />
+      </div>
     );
   } else {
     return <main>{params.groupname}</main>;

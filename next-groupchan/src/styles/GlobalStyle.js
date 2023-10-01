@@ -46,6 +46,14 @@ const GlobalStyle = createGlobalStyle`
             grid-template-columns: 256px auto;
         }
     }
+    .dashboardGroupContainer{
+        @media ${device.laptop} {
+            display: flex;
+            gap: 48px;
+            margin-right: 0!important;
+            padding-right: 0!important;
+        }
+    }
     .container {
         width: 100%;
         padding-left: 14px;
