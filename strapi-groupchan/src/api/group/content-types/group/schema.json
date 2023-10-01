@@ -33,12 +33,6 @@
       "default": false,
       "required": true
     },
-    "admin": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "group"
-    },
     "moderator": {
       "type": "relation",
       "relation": "oneToMany",
@@ -47,9 +41,9 @@
     },
     "users": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
-      "mappedBy": "group_user"
+      "mappedBy": "group_users"
     },
     "message": {
       "type": "relation",
@@ -57,18 +51,25 @@
       "target": "api::message.message",
       "mappedBy": "group"
     },
-    "post": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::post.post",
-      "mappedBy": "group"
-    },
     "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "admin": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "groups"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "group"
     }
   }
 }

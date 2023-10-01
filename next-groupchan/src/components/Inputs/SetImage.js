@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Container, GroupImage, ImageStyled } from "./SetAvatar.styled";
-import photoPlaceholder from "@/static/icons/photo_placeholder.svg";
+import { Container, SetImageButton, ImageStyled, AddImageContainer } from "./SetImage.styled";
+import photoPlaceholder from "@/static/icons/image_ico.svg";
 import { ErrorMessage } from "./Input.styled";
 import { getIn } from "formik";
 
-const SetAvatar = ({name, formik_props,classNameContainer}) => {
+const SetImage = ({name, formik_props,classNameContainer}) => {
   const fileInputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -29,16 +29,18 @@ const SetAvatar = ({name, formik_props,classNameContainer}) => {
     }
   };
   return (
-    <Container className={classNameContainer}>
-      <GroupImage type="button">
+    <Container className={classNameContainer} onClick={handleClick}>
+      <SetImageButton type="button">
         {selectedImage ? (
-          <ImageStyled src={selectedImage} alt="selected image" width={96} height={96} onClick={handleClick} />
+          <ImageStyled className="selectedImage" src={selectedImage} alt="selected image" width={96} height={96} onClick={handleClick} />
         ) : (
+            <AddImageContainer>
           <ImageStyled
             src={photoPlaceholder}
             alt="select image"
-            onClick={handleClick}
           />
+          Dodaj zdjęcie
+          </AddImageContainer>
         )}
         <input
           type="file"
@@ -49,7 +51,7 @@ const SetAvatar = ({name, formik_props,classNameContainer}) => {
           name={name}
 
         />
-      </GroupImage>
+      </SetImageButton>
       <ErrorMessage>
           {getIn(formik_props.errors, name)}
         </ErrorMessage>
@@ -57,4 +59,4 @@ const SetAvatar = ({name, formik_props,classNameContainer}) => {
   );
 };
 
-export default SetAvatar;
+export default SetImage;

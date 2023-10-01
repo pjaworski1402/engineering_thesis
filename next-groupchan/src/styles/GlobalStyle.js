@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { createGlobalStyle } from "styled-components";
 import device from "./device";
 
@@ -30,9 +30,9 @@ const GlobalStyle = createGlobalStyle`
     }
     * {
         box-sizing: border-box;
-        font-family: ${({montserratFont})=>montserratFont};
+        font-family: ${({ montserratFont }) => montserratFont};
     }
-    :root{
+    :root {
         /* COLORS */
         --primary:#fff;
         --contrast:#EB4628;
@@ -40,13 +40,19 @@ const GlobalStyle = createGlobalStyle`
         --gray:#737373;
         --border:#E6E6E6;
     }
+    .dashboardContainer {
+        @media ${device.laptop} {
+            display: grid;
+            grid-template-columns: 256px auto;
+        }
+    }
     .container {
         width: 100%;
         padding-left: 14px;
         padding-right: 14px;
         margin-right: auto;
         margin-left: auto;
-        @media ${device.laptop} {
+        @media ${device.tablet} {
             max-width: 720px;
 	    }
         @media ${device.laptop} {

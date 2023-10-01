@@ -13,7 +13,9 @@ import {
   UserIco,
   SettingButton,
   MenuDesktop,
-  MenuWrapper
+  MenuWrapper,
+  NavIconGroup,
+  CreatePostButton
 } from "./Header.styled";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -21,17 +23,31 @@ import menuIco from "@/static/icons/menu.svg";
 import closeIco from "@/static/icons/close.svg";
 import searchIco from "@/static/icons/search_ico.svg";
 import addIco from "@/static/icons/add_ico.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext";
-import setting from "@/static/icons/setting_ico.svg"
-
+import setting from "@/static/icons/setting_ico.svg";
+import { signOut } from "next-auth/react";
+import { usePathname, useRouter } from 'next/navigation'
 const Header = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { status } = useSession();
+  const pathname = usePathname()
+  const [isGroup,setIsGroup]=useState(false)
+  const [isCreatePost,setIsCreatePost]=useState(false)
+  const groupName = isGroup?decodeURI(window.location.pathname.split("/")[3]):null;
   const user = useUser();
+  const rotuer = useRouter()
   const handleOpenMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const handleCreatePost = ()=>{
+    rotuer.push(`/dashboard/group/${groupName}/create-post`)
+  }
+  console.log(pathname)
+  useEffect(()=>{
+    setIsGroup(pathname.split("/")[2] == "group")
+    setIsCreatePost(pathname.split("/")[4] == "create-post")
+  },[pathname])
   const menuVariants = {
     open: {
       right: 0,
@@ -64,6 +80,9 @@ const Header = (props) => {
         <Link href="/">
           <HeaderLogo className="logo" src={logo} alt="Groupchan" priority />
         </Link>
+        {isGroup&&!isCreatePost&&(
+          <CreatePostButton onClick={handleCreatePost}>Napisz post</CreatePostButton>
+        )}
         <MenuButton>
           <MenuIco
             onClick={handleOpenMenu}
@@ -72,7 +91,7 @@ const Header = (props) => {
           />
         </MenuButton>
         <MenuWrapper>
-        <CloseMenuBG
+          <CloseMenuBG
             initial={false}
             animate={isMenuOpen ? "open" : "closed"}
             variants={menuVariantsBG}
@@ -86,43 +105,79 @@ const Header = (props) => {
             transition={{ duration: 0.3, ease: "easeIn" }}
           >
             <nav>
+              {user?.group_users.map((group) => (
+                <Link href={"/"} key={group.id}>
+                  <NavIconGroup
+                    src={`http://localhost:1337${group.icon.url}`}
+                    alt="search icon"
+                    width={32}
+                    height={32}
+                  />
+                  {group.name}
+                </Link>
+              ))}
               <Link href={"/"}>
                 <NavIcon src={searchIco} alt="search icon" />
                 Szukaj grupy
               </Link>
-              <Link href={"/"}>
+              <Link href={"/dashboard/create-group"}>
                 <NavIcon src={addIco} alt="add icon" />
                 Stwórz nową grupę
               </Link>
             </nav>
             <div className="userTab">
-              <UserIco src={user?.profile?.url&&`http://localhost:1337${user?.profile?.url}`} width={32} height={32} />
-              <div className="userName">{user?.username&&user?.username}</div>
+              <UserIco
+                src={
+                  user?.profile?.url &&
+                  `http://localhost:1337${user?.profile?.url}`
+                }
+                width={32}
+                height={32}
+              />
+              <div className="userName">{user?.username && user?.username}</div>
               <button className="settingButton">
-                <SettingButton src={setting} alt="settings icon" />
+                <SettingButton src={setting} alt="settings icon" onClick={signOut} />
               </button>
             </div>
           </Menu>
         </MenuWrapper>
         <MenuDesktop>
-            <nav>
-              <Link href={"/"}>
-                <NavIcon src={searchIco} alt="search icon" />
-                Szukaj grupy
+          <nav>
+            {user?.group_users.map((group) => (
+              <Link href={"/"} key={group.id}>
+                <NavIconGroup
+                  src={`http://localhost:1337${group.icon.url}`}
+                  alt="search icon"
+                  width={32}
+                  height={32}
+                />
+                {group.name}
               </Link>
-              <Link href={"/"}>
-                <NavIcon src={addIco} alt="add icon" />
-                Stwórz nową grupę
-              </Link>
-            </nav>
-            <div className="userTab">
-              <UserIco src={user?.profile?.url&&`http://localhost:1337${user?.profile?.url}`} width={32} height={32} />
-              <div className="userName">{user?.username&&user?.username}</div>
-              <button className="settingButton">
-                <SettingButton src={setting} alt="settings icon" />
-              </button>
-            </div>
-          </MenuDesktop>
+            ))}
+            <Link href={"/"}>
+              <NavIcon src={searchIco} alt="search icon" />
+              Szukaj grupy
+            </Link>
+            <Link href={"/dashboard/create-group"}>
+              <NavIcon src={addIco} alt="add icon" />
+              Stwórz nową grupę
+            </Link>
+          </nav>
+          <div className="userTab">
+            <UserIco
+              src={
+                user?.profile?.url &&
+                `http://localhost:1337${user?.profile?.url}`
+              }
+              width={32}
+              height={32}
+            />
+            <div className="userName">{user?.username && user?.username}</div>
+            <button className="settingButton">
+              <SettingButton src={setting} alt="settings icon" onClick={signOut} />
+            </button>
+          </div>
+        </MenuDesktop>
       </ContainerAuth>
     );
   } else {

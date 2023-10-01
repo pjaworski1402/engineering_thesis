@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form } from "formik";
+import device from '@/styles/device';
 
 export const Container = styled.div`
   margin: 48px 0;
@@ -26,5 +27,8 @@ export const FormStyled = styled(Form)`
     display: flex;
     flex-direction: column;
     gap:16px;
+  }
+  @media ${device.laptop} {
+    max-width: 612px;
   }
 `;

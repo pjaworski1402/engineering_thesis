@@ -20,15 +20,15 @@
     },
     "group": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::group.group",
-      "inversedBy": "post"
+      "inversedBy": "posts"
     },
     "user": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "post"
+      "inversedBy": "posts"
     },
     "image": {
       "type": "media",

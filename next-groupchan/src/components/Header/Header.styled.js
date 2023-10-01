@@ -23,6 +23,7 @@ export const Container = styled.div`
 
 export const ContainerAuth = styled.div`
   position: sticky;
+  z-index: 1;
   top: 0;
   background-color: var(--primary);
   display: flex;
@@ -74,8 +75,9 @@ export const Menu = styled(motion.div)`
     display: flex;
     flex-direction: column;
     align-items: start;
-    padding: 42px 24px;
-
+    padding: 16px 24px;
+    max-height: calc(100% - 64px);
+    overflow-y: auto;
     a {
       margin-top: 16px;
       display: flex;
@@ -124,6 +126,10 @@ export const CloseMenuBG = styled(motion.div)`
 
 export const NavIcon = styled(Image)``;
 
+export const NavIconGroup = styled.img`
+  border-radius: 6px;
+`;
+
 export const UserIco = styled.img`
   border-radius: 50%;
 `;
@@ -147,8 +153,22 @@ export const MenuDesktop = styled.div`
       display: flex;
       flex-direction: column;
       align-items: start;
-      padding: 42px 24px;
+      padding: 16px 24px;
+      max-height: calc(100% - 64px);
+      overflow-y: auto;
+      /* Stylizacja scrollbarów WebKit */
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
 
+      &::-webkit-scrollbar-thumb {
+        background-color: #a0a0a0;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: #808080;
+      }
       a {
         margin-top: 16px;
         display: flex;
@@ -186,4 +206,16 @@ export const MenuDesktop = styled.div`
       }
     }
   }
+`;
+
+export const CreatePostButton = styled.button`
+  margin-left: auto;
+  border: none;
+  background-color: var(--contrast);
+  color:white;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 2px 13.5px;
 `;

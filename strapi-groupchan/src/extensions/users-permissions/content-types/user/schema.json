@@ -65,21 +65,15 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "post": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::post.post",
-      "mappedBy": "user"
-    },
     "message": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::message.message",
       "mappedBy": "user"
     },
-    "group": {
+    "groups": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::group.group",
       "mappedBy": "admin"
     },
@@ -89,22 +83,29 @@
       "target": "api::group.group",
       "inversedBy": "moderator"
     },
-    "group_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::group.group",
-      "inversedBy": "users"
-    },
     "birthdate": {
       "type": "date",
       "required": true
     },
     "profile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "group_users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::group.group",
+      "inversedBy": "users"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "user"
     }
   }
 }

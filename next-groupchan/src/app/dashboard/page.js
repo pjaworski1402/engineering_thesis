@@ -19,7 +19,6 @@ const Dashboard = () => {
     }
   }, [status]);
   if (isLogged) {
-
     return (
       <div>
         {/* <button onClick={signOut}>Sign out</button> */}

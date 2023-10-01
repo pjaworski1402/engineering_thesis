@@ -16,11 +16,13 @@ export const createGroupSchema = Yup.object().shape({
   description: Yup.string()
     .required("Opis jest wymagany")
     .max(500, "Opis może zawierać maksymalnie 500 znaków"),
-    image: Yup.mixed()
+  image: Yup.mixed()
     .required("Obraz jest wymagany")
     .test("fileFormat", "Nieprawidłowy format obrazu", (value) => {
       if (!value) return true; // Brak obrazu to brak błędu
-      return ["image/png", "image/jpeg", "image/jpg", "image/gif"].includes(value.type);
+      return ["image/png", "image/jpeg", "image/jpg", "image/gif"].includes(
+        value.type
+      );
     }),
   isPublic: Yup.boolean().required("To pole jest wymagane"),
   isNSFW: Yup.boolean().required("To pole jest wymagane"),

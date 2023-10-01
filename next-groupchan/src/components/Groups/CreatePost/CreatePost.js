@@ -1,26 +1,27 @@
 "use client";
-import React, { useState } from "react";
-import { Container, Title, Subtitle, FormStyled } from "./CreateGroup.styled";
-import Input from "@/components/Inputs/Input";
+
+import { useState } from "react";
+import { Container, CloseButton, Title, FormStyled } from "./CreatePost.styled";
+import { initialCreatePost, createPostSchema } from "./Schemas";
 import Textarea from "@/components/Inputs/Textarea";
 import { Formik } from "formik";
-import { initialCreateGroup, createGroupSchema } from "./Schemas";
-import Button from "@/components/Inputs/Button";
 import CustomCheckbox from "@/components/Inputs/Switch";
-import SetAvatar from "@/components/Inputs/SetAvatar";
-import axios from "axios";
+import { Button } from "@/components/Inputs/Button.styled";
+import SetImage from "@/components/Inputs/SetImage"
 import { useSession } from "next-auth/react";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const CreateGroup = () => {
-  const router = useRouter();
+const CreatePost = ({ params }) => {
+  const groupname = decodeURI(params.groupname);
   const [errorsCMS, setErrorsCMS] = useState([]);
+  const router = useRouter();
   const { data } = useSession();
   const handleSubmit = async (values) => {
-    try {
+      try {
       // Upload Icon
       let file = new FormData();
-      file.append("files", values.image);
+      file.append("files", values.postImage);
       axios
         .post("http://localhost:1337/api/upload", file, {
           headers: {
@@ -31,14 +32,13 @@ const CreateGroup = () => {
         .then((response) => {
           const fileId = response.data[0].id;
           axios.post(
-            "http://localhost:1337/api/groups",
+            "http://localhost:1337/api/posts",
             {
               data: {
-                name: values.groupName,
-                description: values.description,
-                public: values.isPublic,
+                content: values.postText,
                 nsfw: values.isNSFW,
-                icon: fileId,
+                image: fileId,
+                groupname: groupname
               },
             },
             {
@@ -46,7 +46,9 @@ const CreateGroup = () => {
                 Authorization: `Bearer ${data.jwt}`,
               },
             }
-          );
+          ).then(()=>{
+            router.push(`/dashboard/group/${groupname}`)
+          })
         })
         .catch((error) => {
           return console.log(error);
@@ -57,50 +59,35 @@ const CreateGroup = () => {
     }
   };
   const handleCancel = ()=>{
-    router.push("/dashboard");
+    router.push(`/dashboard/group/${groupname}`)
   }
   return (
-    <Container className="container">
-      <Title>Stwórz grupę</Title>
-      <Subtitle>
-        Spersonalizuj nową grupę. Możesz w każdej chwili edytować jej
-        ustawienia.
-      </Subtitle>
+    <Container>
+      <Title>{groupname} - Napisz post</Title>
       <Formik
-        initialValues={initialCreateGroup}
-        validationSchema={createGroupSchema}
+        initialValues={initialCreatePost}
+        validationSchema={createPostSchema}
         onSubmit={handleSubmit}
       >
         {(formik_props) => (
           <FormStyled>
-            <SetAvatar classNameContainer="setAvatar" name="image" formik_props={formik_props} />
-            <Input
-              required
-              type="text"
-              name="groupName"
-              formik_props={formik_props}
-              errorsCMS={errorsCMS}
-            >
-              Nazwa grupy
-            </Input>
+            {console.log(formik_props)}
             <Textarea
               required
               type="text"
-              name="description"
+              name="postText"
               formik_props={formik_props}
               errorsCMS={errorsCMS}
-              max={500}
+              max={1000}
             >
-              Opis
+              Tekst posta
             </Textarea>
-            <CustomCheckbox name="isPublic" formik_props={formik_props}>
-              Publiczny
-            </CustomCheckbox>
+            <SetImage classNameContainer="setImage" name="postImage" formik_props={formik_props} />
             <CustomCheckbox name="isNSFW" formik_props={formik_props}>
               NSFW
             </CustomCheckbox>
             <div className="buttons">
-              <Button type="submit">Stwórz grupę</Button>
+              <Button type="submit">Opublikuj</Button>
               <Button invert="true" type="button" onClick={handleCancel}>
                 Anuluj
               </Button>
@@ -112,4 +99,4 @@ const CreateGroup = () => {
   );
 };
 
-export default CreateGroup;
+export default CreatePost;
