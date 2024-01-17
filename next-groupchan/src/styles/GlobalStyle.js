@@ -49,9 +49,13 @@ const GlobalStyle = createGlobalStyle`
     .dashboardGroupContainer{
         @media ${device.laptop} {
             display: flex;
+            justify-content: space-between;
             gap: 48px;
             margin-right: 0!important;
+            margin-left: 0px!important;
             padding-right: 0!important;
+            padding-left: 32px!important;
+            width: 100%;
         }
     }
     .container {
@@ -67,10 +71,10 @@ const GlobalStyle = createGlobalStyle`
             max-width: 1440px;
 	    }
         @media ${device.laptopL} {
-            max-width: 1240px;
+            max-width: unset;
 	    }
         @media ${device.desktop} {
-            max-width: 1480px;
+            max-width: unset;
 	    }
     }
 `;

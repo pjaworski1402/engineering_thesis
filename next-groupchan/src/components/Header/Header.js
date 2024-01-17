@@ -28,6 +28,7 @@ import { useUser } from "@/context/UserContext";
 import setting from "@/static/icons/setting_ico.svg";
 import { signOut } from "next-auth/react";
 import { usePathname, useRouter } from 'next/navigation'
+import { apiVars } from "@/api/strapiQueries";
 const Header = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { status } = useSession();
@@ -37,7 +38,7 @@ const Header = (props) => {
   const groupName = isGroup?decodeURI(window.location.pathname.split("/")[3]):null;
   const user = useUser();
   const rotuer = useRouter()
-  const handleOpenMenu = () => {
+const handleOpenMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const handleCreatePost = ()=>{
@@ -106,9 +107,9 @@ const Header = (props) => {
           >
             <nav>
               {user?.group_users.map((group) => (
-                <Link href={"/"} key={group.id}>
+                <Link onClick={()=>setIsMenuOpen(false)} href={`/dashboard/group/${group.name}`} key={group.id}>
                   <NavIconGroup
-                    src={`http://localhost:1337${group.icon.url}`}
+                    src={`${apiVars.API_URL}${group.icon.url}`}
                     alt="search icon"
                     width={32}
                     height={32}
@@ -116,11 +117,11 @@ const Header = (props) => {
                   {group.name}
                 </Link>
               ))}
-              <Link href={"/"}>
+              <Link onClick={()=>setIsMenuOpen(false)} href={"/"}>
                 <NavIcon src={searchIco} alt="search icon" />
                 Szukaj grupy
               </Link>
-              <Link href={"/dashboard/create-group"}>
+              <Link onClick={()=>setIsMenuOpen(false)} href={"/dashboard/create-group"}>
                 <NavIcon src={addIco} alt="add icon" />
                 Stwórz nową grupę
               </Link>
@@ -129,7 +130,7 @@ const Header = (props) => {
               <UserIco
                 src={
                   user?.profile?.url &&
-                  `http://localhost:1337${user?.profile?.url}`
+                  `${apiVars.API_URL}{user?.profile?.url}`
                 }
                 width={32}
                 height={32}
@@ -144,9 +145,9 @@ const Header = (props) => {
         <MenuDesktop>
           <nav>
             {user?.group_users.map((group) => (
-              <Link href={"/"} key={group.id}>
+              <Link href={`/dashboard/group/${group.name}`} key={group.id}>
                 <NavIconGroup
-                  src={`http://localhost:1337${group.icon.url}`}
+                  src={`${apiVars.API_URL}${group.icon.url}`}
                   alt="search icon"
                   width={32}
                   height={32}
@@ -167,7 +168,7 @@ const Header = (props) => {
             <UserIco
               src={
                 user?.profile?.url &&
-                `http://localhost:1337${user?.profile?.url}`
+                `${apiVars.API_URL}${user?.profile?.url}`
               }
               width={32}
               height={32}

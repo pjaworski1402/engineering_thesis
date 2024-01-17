@@ -11,6 +11,7 @@ import SetAvatar from "@/components/Inputs/SetAvatar";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { apiVars } from "@/api/strapiQueries";
 
 const CreateGroup = () => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const CreateGroup = () => {
       let file = new FormData();
       file.append("files", values.image);
       axios
-        .post("http://localhost:1337/api/upload", file, {
+        .post(`${apiVars.API_URL}/api/upload`, file, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${data.jwt}`,
@@ -31,13 +32,13 @@ const CreateGroup = () => {
         .then((response) => {
           const fileId = response.data[0].id;
           axios.post(
-            "http://localhost:1337/api/groups",
+            `${apiVars.API_URL}/api/groups`,
             {
               data: {
                 name: values.groupName,
                 description: values.description,
                 public: values.isPublic,
-                nsfw: values.isNSFW,
+                nsfw: false,
                 icon: fileId,
               },
             },
@@ -96,9 +97,9 @@ const CreateGroup = () => {
             <CustomCheckbox name="isPublic" formik_props={formik_props}>
               Publiczny
             </CustomCheckbox>
-            <CustomCheckbox name="isNSFW" formik_props={formik_props}>
+            {/* <CustomCheckbox name="isNSFW" formik_props={formik_props}>
               NSFW
-            </CustomCheckbox>
+            </CustomCheckbox> */}
             <div className="buttons">
               <Button type="submit">Stwórz grupę</Button>
               <Button invert="true" type="button" onClick={handleCancel}>

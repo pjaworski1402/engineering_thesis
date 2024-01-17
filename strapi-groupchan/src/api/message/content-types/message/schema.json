@@ -15,20 +15,20 @@
     "content": {
       "type": "text",
       "minLength": 1,
-      "maxLength": 250,
+      "maxLength": 2000,
       "required": true
     },
     "group": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::group.group",
-      "inversedBy": "message"
+      "inversedBy": "messages"
     },
     "user": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "message"
+      "inversedBy": "messages"
     }
   }
 }

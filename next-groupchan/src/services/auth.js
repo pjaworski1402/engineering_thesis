@@ -1,10 +1,8 @@
-
 import axios from 'axios';
-
-const strapiUrl = process.env.API_URL;
+import { apiVars } from '@/api/strapiQueries';
 
 export async function signIn({ email, password }) {
-  const res = await axios.post(`${strapiUrl}/api/auth/local`, {
+  const res = await axios.post(`${apiVars.API_URL}/api/auth/local`, {
     identifier: email,
     password,
   });
@@ -13,7 +11,7 @@ export async function signIn({ email, password }) {
       'Authorization': `Bearer ${res.data.jwt}`,
     },
   };
-  const userInfo = axios.get(`${strapiUrl}/api/users/me`, config)
+  const userInfo = axios.get(`${apiVars.API_URL}/api/users/me`, config)
   .then(response => {
     console.log('Odpowiedź API:', response.data);
   })

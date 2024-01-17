@@ -9,6 +9,7 @@ import Link from "next/link";
 import DateSelector from "../Inputs/Date";
 import axios from 'axios';
 import { useRouter } from "next/navigation";
+import {apiVars} from "../../api/strapiQueries"
 
 const Register = () => {
   const [errorsCMS, setErrorsCMS] = useState([])
@@ -25,7 +26,7 @@ const Register = () => {
       birthdate: `${year}-${month}-${day}`
     };
   
-    axios.post('http://localhost:1337/api/auth/local/register', data)
+    axios.post(`${apiVars.API_URL}/api/auth/local/register`, data)
       .then(response => {
         router.push('/auth/login?status="success"')
       })

@@ -30,4 +30,29 @@ module.exports = createCoreController("api::group.group", ({ strapi }) => ({
       return error;
     }
   },
+  async update(ctx) {
+    const {
+      state: { user },
+      params: { id },
+    } = ctx;
+
+    try {
+      // Fetch the group to check if it exists
+      const group = await strapi.entityService.findOne("api::group.group", id, { populate: ["users"] });
+      if (!group) {
+        return ctx.notFound("Group not found");
+      }
+      // Add the user to the group
+      const updatedGroup = await strapi.entityService.update("api::group.group", id, {
+        data: {
+          users: [...group.users, user.id],
+        },
+      });
+
+      return updatedGroup;
+    } catch (error) {
+      console.log(error);
+      return ctx.internalServerError("Unable to join group");
+    }
+  },
 }));

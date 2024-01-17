@@ -15,7 +15,7 @@
     "name": {
       "type": "string",
       "required": true,
-      "unique": false,
+      "unique": true,
       "minLength": 3,
       "maxLength": 32
     },
@@ -45,12 +45,6 @@
       "target": "plugin::users-permissions.user",
       "mappedBy": "group_users"
     },
-    "message": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::message.message",
-      "mappedBy": "group"
-    },
     "icon": {
       "type": "media",
       "multiple": false,
@@ -69,6 +63,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::post.post",
+      "mappedBy": "group"
+    },
+    "messages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::message.message",
       "mappedBy": "group"
     }
   }

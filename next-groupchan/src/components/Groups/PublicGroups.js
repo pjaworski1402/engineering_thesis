@@ -9,7 +9,7 @@ import { getPublicGroups } from "@/api/strapiQueries";
 import { useSession } from "next-auth/react";
 import GroupCard from "./GroupCard/GroupCard";
 
-const PublicGroups = () => {
+const PublicGroups = ({groupsJoined}) => {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -45,11 +45,11 @@ const PublicGroups = () => {
       <Title>Publiczne grupy</Title>
       <GroupWrapper>
         {groups.data.map((group) => (
-          <GroupCard key={group.id} attributes={group.attributes} />
+          <GroupCard key={group.id} groupId={group.id} attributes={group.attributes} groupsJoined={groupsJoined} />
         ))}
       </GroupWrapper>
       <Pagination>
-        <button className="first">Pierwsza</button>
+        <button className="first">Wstecz</button>
         {pages.map((page) => (
           <button className="pageVar">{page}</button>
         ))}
